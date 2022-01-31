@@ -1,5 +1,95 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ButtonBar?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="es.ideas.controller.TemporizadorController" />
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="es.ideas.controller.TemporizadorController">
+   <children>
+      <GridPane layoutX="126.0" prefHeight="400.0" prefWidth="575.0">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="345.0" minWidth="10.0" prefWidth="200.0" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="574.0" minWidth="10.0" prefWidth="200.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="574.0" minWidth="10.0" prefWidth="200.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints maxHeight="199.0" minHeight="10.0" prefHeight="200.0" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="249.0" minHeight="10.0" prefHeight="100.0" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="186.0" minHeight="10.0" prefHeight="100.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <ButtonBar prefHeight="100.0" prefWidth="628.0" GridPane.columnSpan="2147483647" GridPane.rowIndex="2">
+               <GridPane.margin>
+                  <Insets />
+               </GridPane.margin>
+               <buttons>
+                  <Button alignment="CENTER" mnemonicParsing="false" onAction="#play" prefHeight="71.0" prefWidth="304.0" text="Pl" />
+                  <Button alignment="CENTER" mnemonicParsing="false" onAction="#pause" prefHeight="70.0" text="paus">
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                  </Button>
+                  <Button alignment="CENTER" mnemonicParsing="false" onAction="#reset" prefHeight="70.0" text="reset" />
+                  <Button alignment="CENTER" mnemonicParsing="false" onAction="#borrar" prefHeight="70.0" text="paper" />
+               </buttons>
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+            </ButtonBar>
+            <Label fx:id="horas" alignment="CENTER" prefHeight="110.0" prefWidth="150.0" text="0" textAlignment="CENTER" GridPane.halignment="CENTER">
+               <font>
+                  <Font size="76.0" />
+               </font>
+            </Label>
+            <Label fx:id="minutos" alignment="CENTER" prefHeight="110.0" prefWidth="150.0" text="0" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.halignment="CENTER">
+               <font>
+                  <Font size="76.0" />
+               </font>
+            </Label>
+            <Label fx:id="segundos" alignment="CENTER" prefHeight="110.0" prefWidth="150.0" text="0" textAlignment="CENTER" GridPane.columnIndex="2" GridPane.halignment="CENTER">
+               <font>
+                  <Font size="76.0" />
+               </font>
+            </Label>
+            <Button alignment="TOP_LEFT" mnemonicParsing="false" onAction="#subeHora" text="Button" GridPane.halignment="CENTER" GridPane.valignment="TOP">
+               <GridPane.margin>
+                  <Insets top="30.0" />
+               </GridPane.margin>
+            </Button>
+            <Button alignment="TOP_LEFT" mnemonicParsing="false" onAction="#subeMin" text="Button" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="TOP">
+               <GridPane.margin>
+                  <Insets top="30.0" />
+               </GridPane.margin>
+            </Button>
+            <Button alignment="TOP_LEFT" mnemonicParsing="false" onAction="#subeSec" text="Button" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.valignment="TOP">
+               <GridPane.margin>
+                  <Insets top="30.0" />
+               </GridPane.margin>
+            </Button>
+            <Button alignment="TOP_LEFT" mnemonicParsing="false" onAction="#bajaHora" text="Button" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM">
+               <GridPane.margin>
+                  <Insets bottom="30.0" />
+               </GridPane.margin>
+            </Button>
+            <Button alignment="TOP_LEFT" mnemonicParsing="false" onAction="#bajaMin" text="Button" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM">
+               <GridPane.margin>
+                  <Insets bottom="30.0" />
+               </GridPane.margin>
+            </Button>
+            <Button alignment="TOP_LEFT" mnemonicParsing="false" onAction="#bajaSec" text="Button" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM">
+               <GridPane.margin>
+                  <Insets bottom="30.0" />
+               </GridPane.margin>
+            </Button>
+         </children>
+      </GridPane>
+      <ListView prefHeight="400.0" prefWidth="126.0" />
+   </children>
+</AnchorPane>
