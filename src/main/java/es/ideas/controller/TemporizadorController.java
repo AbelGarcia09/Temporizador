@@ -7,12 +7,16 @@ package es.ideas.controller;
 import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.Timer;
-import javafx.animation.AnimationTimer;
+import javafx.animation.KeyFrame;
+import javafx.animation.KeyValue;
+import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.util.Duration;
 
 /**
  *
@@ -26,37 +30,8 @@ public class TemporizadorController implements Initializable {
     private Label minutos;
     @FXML
     private Label segundos;
-    private int contador = 0;
     private String ultimo_tiempo;
-
-    AnimationTimer timer = new AnimationTimer() {
-        @Override
-        public void handle(long l) {
-
-            contador++;
-            int sec = Integer.parseInt(segundos.getText());
-            int min = Integer.parseInt(minutos.getText());
-            int hora = Integer.parseInt(minutos.getText());
-
-            if (contador == 60) {
-                sec = sec - 1;
-                segundos.setText("" + sec);
-                System.out.println(sec);
-                contador = 0;
-            }
-
-            if (sec == 0) {
-
-                if (!minutos.getText().equals("0")) {
-                    segundos.setText("59");
-                    minutos.setText("" + (min - 1));
-                } 
-
-            }
-
-        }
-
-    };
+    private Timeline timeline;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -65,13 +40,19 @@ public class TemporizadorController implements Initializable {
 
     @FXML
     private void play(ActionEvent event) {
-        timer.start();
-        ultimo_tiempo = segundos.getText();
+        timeline = new Timeline(new KeyFrame(Duration.millis(1000), (ActionEvent evento) -> {
+            int segundo = Integer.parseInt(segundos.getText());
+            segundo--;
+            segundos.setText(segundo + "");
+        }));
+        timeline.setCycleCount(Timeline.INDEFINITE);
+        timeline.setAutoReverse(false);
+        timeline.play();
     }
 
     @FXML
     private void pause(ActionEvent event) {
-        timer.stop();
+        if(timeline != null) timeline.stop();
     }
 
     @FXML
