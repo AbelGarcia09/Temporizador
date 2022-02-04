@@ -32,16 +32,16 @@ public class TemporizadorController implements Initializable {
     private Label segundos;
     private String ultimo_tiempo;
     private Timeline timeline;
-
+    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        
+        timeline = new Timeline();
     }
 
     @FXML
     private void play(ActionEvent event) {
         
-        timeline = new Timeline(new KeyFrame(Duration.millis(1000), (ActionEvent evento) -> {
+        timeline.getKeyFrames().add(new KeyFrame(Duration.millis(1000), (ActionEvent evento) -> {
             int segundo = Integer.parseInt(segundos.getText());
             int minuto = Integer.parseInt(minutos.getText());
             int hora = Integer.parseInt(horas.getText());
@@ -71,12 +71,14 @@ public class TemporizadorController implements Initializable {
         
         timeline.setCycleCount(Timeline.INDEFINITE);
         timeline.setAutoReverse(false);
-        timeline.play();
+        if(timeline != null) {
+            
+        } else timeline.play();
     }
 
     @FXML
     private void pause(ActionEvent event) {
-        if(timeline != null) timeline.stop();
+        if(timeline != null) timeline.pause();
     }
 
     @FXML
