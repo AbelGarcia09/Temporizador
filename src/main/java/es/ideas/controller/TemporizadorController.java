@@ -6,7 +6,6 @@ package es.ideas.controller;
 
 import java.net.URL;
 import java.util.ResourceBundle;
-import java.util.Timer;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
@@ -34,26 +33,18 @@ public class TemporizadorController implements Initializable {
     private String ultimo_tiempo;
     private Timeline timeline;
 
-    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        timeline = new Timeline();
-        timeline.getKeyFrames().add(new KeyFrame(Duration.millis(1000), (ActionEvent evento) -> {
+        timeline = new Timeline(new KeyFrame(Duration.millis(1000), (ActionEvent evento) -> {
             comprobarTimer();
-           
         }));
+        timeline.setCycleCount(Timeline.INDEFINITE);
+        timeline.setAutoReverse(false);
     }
 
     @FXML
     private void play(ActionEvent event) {
-        
-        
-        
-        timeline.setCycleCount(Timeline.INDEFINITE);
-        timeline.setAutoReverse(false);
-        
-            timeline.play();
-        
+        timeline.play();
     }
 
     @FXML
@@ -122,33 +113,33 @@ public class TemporizadorController implements Initializable {
             minutos.setText("" + (total - 1));
         }
     }
-    
-    private void comprobarTimer(){
+
+    private void comprobarTimer() {
         int segundo = Integer.parseInt(segundos.getText());
-            int minuto = Integer.parseInt(minutos.getText());
-            int hora = Integer.parseInt(horas.getText());
-            
-            
-            if(segundo > 0) {
-                segundo--;
+        int minuto = Integer.parseInt(minutos.getText());
+        int hora = Integer.parseInt(horas.getText());
+
+        if (segundo > 0) {
+            segundo--;
+        } else {
+            segundo = 59;
+            if (minuto > 0) {
+                minuto--;
             } else {
-                segundo = 59;
-                if(minuto > 0) {
-                    minuto--;
-                }
-                else {
-                    minuto = 59;
-                    if(hora > 0) {
-                        hora--;
-                    }
+                minuto = 59;
+                if (hora > 0) {
+                    hora--;
                 }
             }
-            
-            segundos.setText(segundo + "");
-            minutos.setText(minuto + "");
-            horas.setText(hora + "");
-            
-            if(segundo == 0 && minuto == 0 && hora == 0) timeline.stop();
+        }
+
+        segundos.setText(segundo + "");
+        minutos.setText(minuto + "");
+        horas.setText(hora + "");
+
+        if (segundo == 0 && minuto == 0 && hora == 0) {
+            timeline.stop();
+        }
     }
 
 }
