@@ -4,6 +4,7 @@
  */
 package es.ideas.controller;
 
+import es.ideas.model.Tiempo;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.animation.Animation;
@@ -30,7 +31,7 @@ public class TemporizadorController implements Initializable {
     private Label minutos;
     @FXML
     private Label segundos;
-    private String ultimo_tiempo;
+    private Tiempo ultimo_tiempo;
     private Timeline timeline;
 
     @Override
@@ -40,11 +41,17 @@ public class TemporizadorController implements Initializable {
         }));
         timeline.setCycleCount(Timeline.INDEFINITE);
         timeline.setAutoReverse(false);
+        
+        ultimo_tiempo = new Tiempo();
     }
 
     @FXML
     private void play(ActionEvent event) {
         timeline.play();
+        ultimo_tiempo.setTiempo(
+                segundos.getText(), 
+                minutos.getText(), 
+                horas.getText());
     }
 
     @FXML
@@ -54,9 +61,9 @@ public class TemporizadorController implements Initializable {
 
     @FXML
     private void reset(ActionEvent event) {
-        if (ultimo_tiempo != null) {
-            segundos.setText(ultimo_tiempo);
-        }
+        segundos.setText(ultimo_tiempo.getSegundos());
+        minutos.setText(ultimo_tiempo.getMinutos());
+        horas.setText(ultimo_tiempo.getHoras());
     }
 
     @FXML
