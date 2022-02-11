@@ -27,6 +27,7 @@ public class App extends Application {
         Parent raiz = loader.load();
         
         Scene scene = new Scene(raiz);
+        
         stage.setScene(scene);
         stage.show();
         
