@@ -53,6 +53,7 @@ public class TemporizadorController implements Initializable {
     private Button idBajaSec;
     private Tiempo ultimo_tiempo;
     private Timeline timeline;
+    private int hora, minuto, segundo;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -61,22 +62,30 @@ public class TemporizadorController implements Initializable {
         }));
         timeline.setCycleCount(Timeline.INDEFINITE);
         timeline.setAutoReverse(false);
-        
+
         ultimo_tiempo = new Tiempo();
+
+        muestraTiempo();
+        compruebaCero();
+        System.out.println(Integer.parseInt(segundos.getText()));
     }
 
     @FXML
     private void play(ActionEvent event) {
         timeline.play();
         ultimo_tiempo.setTiempo(
-                segundos.getText(), 
-                minutos.getText(), 
+                segundos.getText(),
+                minutos.getText(),
                 horas.getText());
+
+        botonesStatus(true);
     }
 
     @FXML
     private void pause(ActionEvent event) {
         timeline.pause();
+
+        botonesStatus(false);
     }
 
     @FXML
@@ -88,63 +97,49 @@ public class TemporizadorController implements Initializable {
 
     @FXML
     private void borrar(ActionEvent event) {
-        segundos.setText("0");
-        minutos.setText("0");
-        horas.setText("0");
+        segundos.setText("00");
+        minutos.setText("00");
+        horas.setText("00");
+
+        compruebaCero();
     }
 
     @FXML
     private void subeSec(ActionEvent event) {
-        int total = Integer.parseInt(segundos.getText());
-        if (total < 59) {
-            segundos.setText("" + (total + 1));
-        }
+
+        manipulaTiempo(segundos, "SUMA");
+
     }
 
     @FXML
     private void bajaSec(ActionEvent event) {
-        int total = Integer.parseInt(segundos.getText());
-        if (total > 0) {
-            segundos.setText("" + (total - 1));
-        }
+        manipulaTiempo(segundos, "RESTA");
     }
 
     @FXML
     private void subeHora(ActionEvent event) {
-        int total = Integer.parseInt(horas.getText());
-        if (total < 59) {
-            horas.setText("" + (total + 1));
-        }
+        manipulaTiempo(horas, "SUMA");
     }
 
     @FXML
     private void subeMin(ActionEvent event) {
-        int total = Integer.parseInt(minutos.getText());
-        if (total < 59) {
-            minutos.setText("" + (total + 1));
-        }
+        manipulaTiempo(minutos, "SUMA");
     }
 
     @FXML
     private void bajaHora(ActionEvent event) {
-        int total = Integer.parseInt(horas.getText());
-        if (total > 0) {
-            horas.setText("" + (total - 1));
-        }
+        manipulaTiempo(horas, "RESTA");
     }
 
     @FXML
     private void bajaMin(ActionEvent event) {
-        int total = Integer.parseInt(minutos.getText());
-        if (total > 0) {
-            minutos.setText("" + (total - 1));
-        }
+        manipulaTiempo(minutos, "RESTA");
     }
 
     private void comprobarTimer() {
-        int segundo = Integer.parseInt(segundos.getText());
-        int minuto = Integer.parseInt(minutos.getText());
-        int hora = Integer.parseInt(horas.getText());
+        hora = Integer.parseInt(horas.getText());
+        minuto = Integer.parseInt(minutos.getText());
+        segundo = Integer.parseInt(segundos.getText());
 
         if (segundo > 0) {
             segundo--;
@@ -160,13 +155,81 @@ public class TemporizadorController implements Initializable {
             }
         }
 
-        segundos.setText(segundo + "");
-        minutos.setText(minuto + "");
-        horas.setText(hora + "");
+        muestraTiempo();
 
-        if (segundo == 0 && minuto == 0 && hora == 0) {
+        if (hora == 0 && minuto == 0 && segundo == 0) {
             timeline.stop();
         }
+    }
+
+    private void compruebaCero() {
+        if (horas.getText().equals("00") && minutos.getText().equals("00") && segundos.getText().equals("00")) {
+            idPlay.setDisable(true);
+            idPause.setDisable(true);
+            idReset.setDisable(true);
+            idPaper.setDisable(true);
+        } else {
+            idPlay.setDisable(false);
+        }
+    }
+
+    private void botonesStatus(boolean estado) {
+        idPlay.setDisable(estado);
+        idPause.setDisable(!estado);
+        idReset.setDisable(estado);
+        idPaper.setDisable(estado);
+        idSubeHora.setDisable(estado);
+        idSubeMin.setDisable(estado);
+        idSubeSec.setDisable(estado);
+        idBajaHora.setDisable(estado);
+        idBajaMin.setDisable(estado);
+        idBajaSec.setDisable(estado);
+    }
+
+    private void muestraTiempo() {
+        if (hora < 10) {
+            horas.setText("0" + hora);
+        } else {
+            horas.setText("" + hora);
+        }
+
+        if (minuto < 10) {
+            minutos.setText("0" + minuto);
+        } else {
+            minutos.setText("" + minuto);
+        }
+
+        if (segundo < 10) {
+            segundos.setText("0" + segundo);
+        } else {
+            segundos.setText("" + segundo);
+        }
+    }
+
+    private void manipulaTiempo(Label tipo, String accion) {
+        int total = Integer.parseInt(tipo.getText());
+
+        if (accion.equals("SUMA")) {
+            if (total < 59) {
+                if (total < 9) {
+                    tipo.setText("0" + (total + 1));
+                } else {
+                    tipo.setText("" + (total + 1));
+                }
+            }
+        } 
+
+        if (accion.equals("RESTA")){
+           if (total < 59) {
+                if (total < 9 && total > 1) {
+                    tipo.setText("0" + (total - 1));
+                } else {
+                    tipo.setText("" + (total - 1));
+                }
+            } 
+        }
+        
+        compruebaCero();
     }
 
 }
