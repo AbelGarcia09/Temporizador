@@ -31,6 +31,26 @@ public class TemporizadorController implements Initializable {
     private Label minutos;
     @FXML
     private Label segundos;
+    @FXML
+    private Button idPlay;
+    @FXML
+    private Button idPause;
+    @FXML
+    private Button idReset;
+    @FXML
+    private Button idPaper;
+    @FXML
+    private Button idSubeHora;
+    @FXML
+    private Button idSubeMin;
+    @FXML
+    private Button idSubeSec;
+    @FXML
+    private Button idBajaHora;
+    @FXML
+    private Button idBajaMin;
+    @FXML
+    private Button idBajaSec;
     private Tiempo ultimo_tiempo;
     private Timeline timeline;
 

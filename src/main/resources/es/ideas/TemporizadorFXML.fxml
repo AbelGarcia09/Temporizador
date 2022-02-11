@@ -30,14 +30,14 @@
                   <Insets />
                </GridPane.margin>
                <buttons>
-                  <Button alignment="CENTER" mnemonicParsing="false" onAction="#play" prefHeight="71.0" prefWidth="304.0" text="Pl" />
-                  <Button alignment="CENTER" mnemonicParsing="false" onAction="#pause" prefHeight="70.0" text="paus">
+                  <Button fx:id="idPlay" alignment="CENTER" mnemonicParsing="false" onAction="#play" prefHeight="71.0" prefWidth="304.0" text="Pl" />
+                  <Button fx:id="idPause" alignment="CENTER" mnemonicParsing="false" onAction="#pause" prefHeight="70.0" text="paus">
                      <opaqueInsets>
                         <Insets />
                      </opaqueInsets>
                   </Button>
-                  <Button alignment="CENTER" mnemonicParsing="false" onAction="#reset" prefHeight="70.0" text="reset" />
-                  <Button alignment="CENTER" mnemonicParsing="false" onAction="#borrar" prefHeight="70.0" text="paper" />
+                  <Button fx:id="idReset" alignment="CENTER" mnemonicParsing="false" onAction="#reset" prefHeight="70.0" text="reset" />
+                  <Button fx:id="idPaper" alignment="CENTER" mnemonicParsing="false" onAction="#borrar" prefHeight="70.0" text="paper" />
                </buttons>
                <opaqueInsets>
                   <Insets />
@@ -58,32 +58,32 @@
                   <Font size="76.0" />
                </font>
             </Label>
-            <Button alignment="TOP_LEFT" mnemonicParsing="false" onAction="#subeHora" text="Button" GridPane.halignment="CENTER" GridPane.valignment="TOP">
+            <Button fx:id="idSubeHora" alignment="TOP_LEFT" mnemonicParsing="false" onAction="#subeHora" text="Button" GridPane.halignment="CENTER" GridPane.valignment="TOP">
                <GridPane.margin>
                   <Insets top="30.0" />
                </GridPane.margin>
             </Button>
-            <Button alignment="TOP_LEFT" mnemonicParsing="false" onAction="#subeMin" text="Button" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="TOP">
+            <Button fx:id="idSubeMin" alignment="TOP_LEFT" mnemonicParsing="false" onAction="#subeMin" text="Button" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="TOP">
                <GridPane.margin>
                   <Insets top="30.0" />
                </GridPane.margin>
             </Button>
-            <Button alignment="TOP_LEFT" mnemonicParsing="false" onAction="#subeSec" text="Button" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.valignment="TOP">
+            <Button fx:id="idSubeSec" alignment="TOP_LEFT" mnemonicParsing="false" onAction="#subeSec" text="Button" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.valignment="TOP">
                <GridPane.margin>
                   <Insets top="30.0" />
                </GridPane.margin>
             </Button>
-            <Button alignment="TOP_LEFT" mnemonicParsing="false" onAction="#bajaHora" text="Button" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM">
+            <Button fx:id="idBajaHora" alignment="TOP_LEFT" mnemonicParsing="false" onAction="#bajaHora" text="Button" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM">
                <GridPane.margin>
                   <Insets bottom="30.0" />
                </GridPane.margin>
             </Button>
-            <Button alignment="TOP_LEFT" mnemonicParsing="false" onAction="#bajaMin" text="Button" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM">
+            <Button fx:id="idBajaMin" alignment="TOP_LEFT" mnemonicParsing="false" onAction="#bajaMin" text="Button" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM">
                <GridPane.margin>
                   <Insets bottom="30.0" />
                </GridPane.margin>
             </Button>
-            <Button alignment="TOP_LEFT" mnemonicParsing="false" onAction="#bajaSec" text="Button" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM">
+            <Button fx:id="idBajaSec" alignment="TOP_LEFT" mnemonicParsing="false" onAction="#bajaSec" text="Button" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM">
                <GridPane.margin>
                   <Insets bottom="30.0" />
                </GridPane.margin>
