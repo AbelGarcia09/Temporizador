@@ -7,12 +7,9 @@ package es.ideas.controller;
 import es.ideas.model.Tiempo;
 import java.net.URL;
 import java.util.ResourceBundle;
-import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
-import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -67,7 +64,6 @@ public class TemporizadorController implements Initializable {
 
         muestraTiempo();
         compruebaCero();
-        System.out.println(Integer.parseInt(segundos.getText()));
     }
 
     @FXML
@@ -106,9 +102,7 @@ public class TemporizadorController implements Initializable {
 
     @FXML
     private void subeSec(ActionEvent event) {
-
         manipulaTiempo(segundos, "SUMA");
-
     }
 
     @FXML
@@ -159,6 +153,7 @@ public class TemporizadorController implements Initializable {
 
         if (hora == 0 && minuto == 0 && segundo == 0) {
             timeline.stop();
+            compruebaCero();
         }
     }
 
@@ -168,6 +163,12 @@ public class TemporizadorController implements Initializable {
             idPause.setDisable(true);
             idReset.setDisable(true);
             idPaper.setDisable(true);
+            idSubeHora.setDisable(false);
+            idSubeMin.setDisable(false);
+            idSubeSec.setDisable(false);
+            idBajaHora.setDisable(false);
+            idBajaMin.setDisable(false);
+            idBajaSec.setDisable(false);
         } else {
             idPlay.setDisable(false);
         }
@@ -210,25 +211,25 @@ public class TemporizadorController implements Initializable {
         int total = Integer.parseInt(tipo.getText());
 
         if (accion.equals("SUMA")) {
-            if (total < 59) {
+            if (total < 59 && total >= 0) {
                 if (total < 9) {
                     tipo.setText("0" + (total + 1));
                 } else {
                     tipo.setText("" + (total + 1));
                 }
             }
-        } 
+        }
 
-        if (accion.equals("RESTA")){
-           if (total < 59) {
-                if (total < 9 && total > 1) {
+        if (accion.equals("RESTA")) {
+            if (total < 59 && total > 0) {
+                if (total < 9) {
                     tipo.setText("0" + (total - 1));
                 } else {
                     tipo.setText("" + (total - 1));
                 }
-            } 
+            }
         }
-        
+
         compruebaCero();
     }
 
