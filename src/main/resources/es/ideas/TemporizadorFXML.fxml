@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="es.ideas.controller.TemporizadorController">
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="700.0" stylesheets="@css/default.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="es.ideas.controller.TemporizadorController">
    <children>
       <GridPane layoutX="126.0" prefHeight="400.0" prefWidth="575.0">
         <columnConstraints>
