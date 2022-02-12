@@ -78,7 +78,7 @@ public class TemporizadorController implements Initializable {
             comprobarTimer();
         }));
         temporizador.setCycleCount(Timeline.INDEFINITE);
-        
+        recordatorio.setFocusTraversable(false);
         muestraTiempo();
         compruebaCero();
     }
