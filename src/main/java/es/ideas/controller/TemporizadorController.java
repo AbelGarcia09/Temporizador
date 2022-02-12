@@ -11,12 +11,16 @@ import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
 import javafx.util.Duration;
@@ -55,14 +59,18 @@ public class TemporizadorController implements Initializable {
     private Button idBajaSec;
     @FXML
     private Label horaActual;
+    @FXML
+    private TextField recordatorio;
+    @FXML
+    private ListView<Tiempo> listView;
     private final DateTimeFormatter dtf = DateTimeFormatter.ofPattern("HH:mm:ss");
-    private final Tiempo ultimo_tiempo = new Tiempo();
     private Timeline temporizador, timelineHora;
     private int hora, minuto, segundo;
     private final Alert fin = new Alert(Alert.AlertType.INFORMATION);
-    @FXML
-    private TextField recordatorio;
-    
+    private final Tiempo lista = new Tiempo();
+    private ObservableList<Tiempo> listaTiempo = lista.getTiempos();
+    private ChangeListener<Tiempo> tiempoChangeListener;
+    private Tiempo tiempo;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -78,20 +86,40 @@ public class TemporizadorController implements Initializable {
             comprobarTimer();
         }));
         temporizador.setCycleCount(Timeline.INDEFINITE);
+        
         recordatorio.setFocusTraversable(false);
+        
         muestraTiempo();
         compruebaCero();
+        
+        listView.setItems(listaTiempo);       
+        listView.getSelectionModel().selectedItemProperty().addListener(
+            tiempoChangeListener = (observable, oldValue, newValue) -> {
+            if (newValue != null) { // si newValue es distinto de null, que pasa?
+                horas.setText(newValue.getHoras());
+                minutos.setText(newValue.getMinutos());
+                segundos.setText(newValue.getSegundos());
+                recordatorio.setText(newValue.getRecordatorio());
+                botonesStatus(false);
+            }
+        });
     }
 
+    
     @FXML
     private void play(ActionEvent event) {
+        tiempo = new Tiempo(
+                segundos.getText(), 
+                minutos.getText(), 
+                horas.getText(), 
+                recordatorio.getText());
+        
+        if(temporizador.getStatus().toString().equals("STOPPED")) listaTiempo.add(tiempo);
+        
         temporizador.play();
-        ultimo_tiempo.setTiempo(
-                segundos.getText(),
-                minutos.getText(),
-                horas.getText());
 
-        botonesStatus(true);
+        recordatorio.setText("");
+        botonesStatus(true);        
     }
 
     @FXML
@@ -103,9 +131,9 @@ public class TemporizadorController implements Initializable {
 
     @FXML
     private void reset(ActionEvent event) {
-        segundos.setText(ultimo_tiempo.getSegundos());
-        minutos.setText(ultimo_tiempo.getMinutos());
-        horas.setText(ultimo_tiempo.getHoras());
+        segundos.setText(tiempo.getSegundos());
+        minutos.setText(tiempo.getMinutos());
+        horas.setText(tiempo.getHoras());
     }
 
     @FXML
@@ -115,6 +143,7 @@ public class TemporizadorController implements Initializable {
         horas.setText("00");
 
         compruebaCero();
+        temporizador.stop();
     }
 
     @FXML
@@ -172,6 +201,7 @@ public class TemporizadorController implements Initializable {
             temporizador.stop();
 
             fin.setHeaderText("TEMPORIZADOR FINALIZADO");
+            fin.setContentText(tiempo.getRecordatorio());
             fin.show();
 
             compruebaCero();
@@ -190,6 +220,8 @@ public class TemporizadorController implements Initializable {
             idBajaHora.setDisable(false);
             idBajaMin.setDisable(false);
             idBajaSec.setDisable(false);
+            listView.setDisable(false);
+            recordatorio.setDisable(false);
         } else {
             idPlay.setDisable(false);
         }
@@ -206,6 +238,8 @@ public class TemporizadorController implements Initializable {
         idBajaHora.setDisable(estado);
         idBajaMin.setDisable(estado);
         idBajaSec.setDisable(estado);
+        listView.setDisable(estado);
+        recordatorio.setDisable(estado);
     }
 
     private void muestraTiempo() {
@@ -242,7 +276,7 @@ public class TemporizadorController implements Initializable {
         }
 
         if (accion.equals("RESTA")) {
-            if (total < 59 && total > 0) {
+            if (total <= 59 && total > 0) {
                 if (total < 9) {
                     tipo.setText("0" + (total - 1));
                 } else {

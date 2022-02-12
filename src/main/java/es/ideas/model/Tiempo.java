@@ -4,29 +4,36 @@
  */
 package es.ideas.model;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+
 /**
  *
  * @author Abel
  */
 public class Tiempo {
-    String segundos, minutos, horas;
+    String segundos, minutos, horas, recordatorio;
+    private ObservableList<Tiempo> listaTiempo = FXCollections.observableArrayList();
     
     public Tiempo() {
-        this.segundos = "0";
-        this.minutos = "0";
-        this.horas = "0";
+        segundos = "00";
+        minutos = "00";
+        horas = "00";
+        recordatorio = "";
     }
 
-    public Tiempo(String segundos, String minutos, String horas) {
+    public Tiempo(String segundos, String minutos, String horas, String recordatorio) {
         this.segundos = segundos;
         this.minutos = minutos;
         this.horas = horas;
+        this.recordatorio = recordatorio;
     }
 
-    public void setTiempo(String segundos, String minutos, String horas) {
+    public void setTiempo(String segundos, String minutos, String horas, String recordatorio) {
         this.segundos = segundos;
         this.minutos = minutos;
         this.horas = horas;
+        this.recordatorio = recordatorio;
     }
     
     public String getSegundos() {
@@ -52,6 +59,21 @@ public class Tiempo {
     public void setHoras(String horas) {
         this.horas = horas;
     }
+
+    public String getRecordatorio() {
+        return recordatorio;
+    }
+
+    public void setRecordatorio(String recordatorio) {
+        this.recordatorio = recordatorio;
+    }
+
+    @Override
+    public String toString() {
+        return horas + ":" + minutos + ":" + segundos;
+    }
     
-    
+    public ObservableList<Tiempo> getTiempos() {
+        return listaTiempo;
+    }
 }
