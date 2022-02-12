@@ -5,6 +5,7 @@
 <?import javafx.scene.control.ButtonBar?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -33,6 +34,7 @@
                   <Insets />
                </GridPane.margin>
                <buttons>
+                  <TextField fx:id="recordatorio" promptText="Recordatorio" />
                   <Button fx:id="idPlay" alignment="CENTER" mnemonicParsing="false" onAction="#play" prefHeight="30.0" prefWidth="250.0">
                      <graphic>
                         <ImageView fitHeight="30.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">

@@ -17,6 +17,8 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
+import javafx.scene.text.Text;
 import javafx.util.Duration;
 
 /**
@@ -58,6 +60,9 @@ public class TemporizadorController implements Initializable {
     private Timeline temporizador, timelineHora;
     private int hora, minuto, segundo;
     private final Alert fin = new Alert(Alert.AlertType.INFORMATION);
+    @FXML
+    private TextField recordatorio;
+    
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -73,7 +78,7 @@ public class TemporizadorController implements Initializable {
             comprobarTimer();
         }));
         temporizador.setCycleCount(Timeline.INDEFINITE);
-
+        
         muestraTiempo();
         compruebaCero();
     }
