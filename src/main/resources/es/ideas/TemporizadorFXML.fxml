@@ -16,7 +16,7 @@
 
 <AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="700.0" stylesheets="@css/default.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="es.ideas.controller.TemporizadorController">
    <children>
-      <GridPane fx:id="gridmainpane" layoutX="126.0" prefHeight="400.0" prefWidth="575.0">
+      <GridPane layoutX="126.0" prefHeight="400.0" prefWidth="575.0">
         <columnConstraints>
           <ColumnConstraints hgrow="SOMETIMES" maxWidth="345.0" minWidth="10.0" prefWidth="200.0" />
           <ColumnConstraints hgrow="SOMETIMES" maxWidth="574.0" minWidth="10.0" prefWidth="200.0" />
@@ -169,6 +169,11 @@
                   <Font size="85.0" />
                </font>
             </Text>
+            <Label fx:id="horaActual" alignment="CENTER" prefHeight="17.0" prefWidth="118.0" GridPane.columnIndex="2" GridPane.halignment="CENTER">
+               <GridPane.margin>
+                  <Insets />
+               </GridPane.margin>
+            </Label>
          </children>
       </GridPane>
       <ListView prefHeight="400.0" prefWidth="126.0" />

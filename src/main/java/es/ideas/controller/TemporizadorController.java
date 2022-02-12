@@ -6,6 +6,8 @@ package es.ideas.controller;
 
 import es.ideas.model.Tiempo;
 import java.net.URL;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -49,20 +51,28 @@ public class TemporizadorController implements Initializable {
     private Button idBajaMin;
     @FXML
     private Button idBajaSec;
-    private Tiempo ultimo_tiempo;
-    private Timeline timeline;
+    @FXML
+    private Label horaActual;
+    private final DateTimeFormatter dtf = DateTimeFormatter.ofPattern("HH:mm:ss");
+    private final Tiempo ultimo_tiempo = new Tiempo();
+    private Timeline temporizador, timelineHora;
     private int hora, minuto, segundo;
     private final Alert fin = new Alert(Alert.AlertType.INFORMATION);
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        timeline = new Timeline(new KeyFrame(Duration.millis(1000), (ActionEvent evento) -> {
+        //Timeline de la hora actual
+        timelineHora = new Timeline(new KeyFrame(Duration.millis(1000), (ActionEvent evento) -> {
+            horaActual.setText(dtf.format(LocalDateTime.now()));
+        }));
+        timelineHora.setCycleCount(Timeline.INDEFINITE);
+        timelineHora.play();
+
+        //Timeline del temporizador
+        temporizador = new Timeline(new KeyFrame(Duration.millis(1000), (ActionEvent evento) -> {
             comprobarTimer();
         }));
-        timeline.setCycleCount(Timeline.INDEFINITE);
-        timeline.setAutoReverse(false);
-
-        ultimo_tiempo = new Tiempo();
+        temporizador.setCycleCount(Timeline.INDEFINITE);
 
         muestraTiempo();
         compruebaCero();
@@ -70,7 +80,7 @@ public class TemporizadorController implements Initializable {
 
     @FXML
     private void play(ActionEvent event) {
-        timeline.play();
+        temporizador.play();
         ultimo_tiempo.setTiempo(
                 segundos.getText(),
                 minutos.getText(),
@@ -81,7 +91,7 @@ public class TemporizadorController implements Initializable {
 
     @FXML
     private void pause(ActionEvent event) {
-        timeline.pause();
+        temporizador.pause();
 
         botonesStatus(false);
     }
@@ -154,11 +164,11 @@ public class TemporizadorController implements Initializable {
         muestraTiempo();
 
         if (hora == 0 && minuto == 0 && segundo == 0) {
-            timeline.stop();
-            
+            temporizador.stop();
+
             fin.setHeaderText("TEMPORIZADOR FINALIZADO");
             fin.show();
-                        
+
             compruebaCero();
         }
     }
