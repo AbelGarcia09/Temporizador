@@ -12,6 +12,7 @@ import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.util.Duration;
@@ -51,6 +52,7 @@ public class TemporizadorController implements Initializable {
     private Tiempo ultimo_tiempo;
     private Timeline timeline;
     private int hora, minuto, segundo;
+    private final Alert fin = new Alert(Alert.AlertType.INFORMATION);
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -153,6 +155,10 @@ public class TemporizadorController implements Initializable {
 
         if (hora == 0 && minuto == 0 && segundo == 0) {
             timeline.stop();
+            
+            fin.setHeaderText("TEMPORIZADOR FINALIZADO");
+            fin.show();
+                        
             compruebaCero();
         }
     }

@@ -9,7 +9,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/CascadeStyleSheet.css to ed
 
 .root {    
     -fx-background-color: #999999;
-    
+    /*-fx-background-image: url("../img/delete.png");*/
 }
 
 

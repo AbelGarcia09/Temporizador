@@ -37,7 +37,7 @@
                      <graphic>
                         <ImageView fitHeight="30.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../../img/play.png" />
+                              <Image url="@img/play.png" />
                            </image>
                         </ImageView>
                      </graphic></Button>
@@ -48,7 +48,7 @@
                      <graphic>
                         <ImageView fitHeight="30.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../../img/pause.png" />
+                              <Image url="@img/pause.png" />
                            </image>
                         </ImageView>
                      </graphic>
@@ -57,7 +57,7 @@
                      <graphic>
                         <ImageView fitHeight="30.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../../img/reset.png" />
+                              <Image url="@img/reset.png" />
                            </image>
                         </ImageView>
                      </graphic></Button>
@@ -65,7 +65,7 @@
                      <graphic>
                         <ImageView fitHeight="30.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../../img/delete.png" />
+                              <Image url="@img/delete.png" />
                            </image>
                         </ImageView>
                      </graphic></Button>
@@ -99,7 +99,7 @@
                <graphic>
                   <ImageView fitHeight="30.0" fitWidth="52.0" pickOnBounds="true" preserveRatio="true" rotate="90.0">
                      <image>
-                        <Image url="@../../img/arrow.png" />
+                        <Image url="@img/arrow.png" />
                      </image>
                   </ImageView>
                </graphic>
@@ -111,7 +111,7 @@
                <graphic>
                   <ImageView fitHeight="30.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" rotate="90.0">
                      <image>
-                        <Image url="@../../img/arrow.png" />
+                        <Image url="@img/arrow.png" />
                      </image>
                   </ImageView>
                </graphic>
@@ -123,7 +123,7 @@
                <graphic>
                   <ImageView fitHeight="30.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" rotate="90.0">
                      <image>
-                        <Image url="@../../img/arrow.png" />
+                        <Image url="@img/arrow.png" />
                      </image>
                   </ImageView>
                </graphic>
@@ -135,7 +135,7 @@
                <graphic>
                   <ImageView fitHeight="30.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" rotate="-90.0">
                      <image>
-                        <Image url="@../../img/arrow.png" />
+                        <Image url="@img/arrow.png" />
                      </image>
                   </ImageView>
                </graphic>
@@ -147,7 +147,7 @@
                <graphic>
                   <ImageView fitHeight="30.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" rotate="-90.0">
                      <image>
-                        <Image url="@../../img/arrow.png" />
+                        <Image url="@img/arrow.png" />
                      </image>
                   </ImageView>
                </graphic>
@@ -159,7 +159,7 @@
                <graphic>
                   <ImageView fitHeight="30.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" rotate="-90.0">
                      <image>
-                        <Image url="@../../img/arrow.png" />
+                        <Image url="@img/arrow.png" />
                      </image>
                   </ImageView>
                </graphic>
