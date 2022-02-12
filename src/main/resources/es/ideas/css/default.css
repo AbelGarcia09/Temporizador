@@ -7,8 +7,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/CascadeStyleSheet.css to ed
     Author     : fatal
 */
 
-.root {    
-    
+.root {        
     -fx-background-image: url("../img/fondobueno.png");
     -fx-background-position: 100%;
     -fx-background-size: 100%;

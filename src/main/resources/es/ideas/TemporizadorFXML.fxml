@@ -63,11 +63,11 @@
                            </image>
                         </ImageView>
                      </graphic></Button>
-                  <Button fx:id="idPaper" alignment="CENTER" mnemonicParsing="false" onAction="#borrar" prefHeight="30.0" prefWidth="250.0">
+                  <Button fx:id="idNuevo" alignment="CENTER" mnemonicParsing="false" onAction="#nuevo" prefHeight="30.0" prefWidth="250.0">
                      <graphic>
-                        <ImageView fitHeight="30.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fitHeight="30.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@img/delete.png" />
+                              <Image url="@img/add.png" />
                            </image>
                         </ImageView>
                      </graphic></Button>
