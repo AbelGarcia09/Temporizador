@@ -169,7 +169,7 @@
                   <Font size="85.0" />
                </font>
             </Text>
-            <Label fx:id="horaActual" alignment="CENTER" prefHeight="17.0" prefWidth="118.0" GridPane.columnIndex="2" GridPane.halignment="CENTER">
+            <Label fx:id="horaActual" alignment="BOTTOM_CENTER" prefHeight="17.0" prefWidth="118.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM">
                <GridPane.margin>
                   <Insets />
                </GridPane.margin>

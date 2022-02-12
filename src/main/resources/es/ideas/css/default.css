@@ -8,8 +8,10 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/CascadeStyleSheet.css to ed
 */
 
 .root {    
-    -fx-background-color: #999999;
-    /*-fx-background-image: url("../img/delete.png");*/
+    
+    -fx-background-image: url("../img/fondobueno.png");
+    -fx-background-position: 100%;
+    -fx-background-size: 100%;
 }
 
 
@@ -36,4 +38,11 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/CascadeStyleSheet.css to ed
     -fx-font-family: "Arial Black";
     -fx-fill: #818181;
     -fx-effect: innershadow( three-pass-box , rgba(0,0,0,0.7) , 6, 0.0 , 0 , 2 );
+}
+
+#horaActual {
+   -fx-font-size: 20px;
+   -fx-font-family: "Arial Black";
+   -fx-fill: #818181;
+   -fx-effect: innershadow( three-pass-box , rgba(0,0,0,0.7) , 6, 0.0 , 0 , 2 );
 }
