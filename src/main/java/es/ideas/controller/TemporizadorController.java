@@ -120,9 +120,11 @@ public class TemporizadorController implements Initializable {
         /*Al pulsar Play, guardamos cada tiempo en una clase Tiempo. Un nuevo tiempo
         solo se crea si el estado del timeline es STOPPED. No vale con que esté pausado.
         En caso de estar pausado, se sigue utilizando el mismo "Tiempo" cada vez
-        que se pulse el play. Además no puede haber un item seleccionado en la lista.*/
+        que se pulse el play. Además no puede haber un item seleccionado en la lista.
+        Si no se cumple esta condición, "tiempo" pasará a ser el item que este 
+        seleccionado en la lista*/
         if (temporizador.getStatus().toString().equals("STOPPED")
-        && listView.getSelectionModel().getSelectedItem() == null) {
+                && listView.getSelectionModel().getSelectedItem() == null) {
             tiempo = new Tiempo(
                     segundos.getText(),
                     minutos.getText(),
@@ -130,7 +132,15 @@ public class TemporizadorController implements Initializable {
                     recordatorio.getText());
             //Una vez creado el Tiempo, se añade a la lista.
             listaTiempo.add(tiempo);
+        } else {
+            for (int i = 0; i < listaTiempo.size(); i++) {
+                if (listView.getSelectionModel().isSelected(i)) {
+                    tiempo = listView.getSelectionModel().getSelectedItem();
+                }
+            }
         }
+        //Se actualiza la lista
+        actualizaLista();
         //Ejecutamos el temporizador y cambiamos de estado los botones.
         temporizador.play();
         botonesStatus(true);
@@ -145,7 +155,7 @@ public class TemporizadorController implements Initializable {
         if (listView.getSelectionModel().getSelectedItem() != null) {
             tiempo = listView.getSelectionModel().getSelectedItem();
         }
-        //Actualizamos la lista con los nuevos tiempos.
+
         actualizaLista();
         //Cambiamos el estado de los botones al contrario que en el Play.
         botonesStatus(false);
@@ -250,17 +260,9 @@ public class TemporizadorController implements Initializable {
 
         //Cada segundo también se comprueba si el temporizador ha llegado a 0.
         if (hora == 0 && minuto == 0 && segundo == 0) {
-            //Se para el timeline
+            //Se para el timeline y se actualiza la lista
             temporizador.stop();
-
-            //Se elimina de la lista el tiempo que acaba de terminar.
-            listaTiempo.remove(tiempo);
-
-            /*Los objetos de tipo Tiempo tienen una posición fija que se les ha 
-            asignado automáticamente conforme se han creado. Al eliminar un 
-            elemento de la lista, también restamos 1 a la variable estática
-            que se encarga de asignar estas posiciones*/
-            Tiempo.setPosicion_siguiente((Tiempo.getPosicion_siguiente()-1));
+            actualizaLista();
 
             /*Aparece un mensaje de alarma avisando que el temporizador ha llegado
             a su fin y enseñando el recordatorio de ese tiempo*/
@@ -354,7 +356,7 @@ public class TemporizadorController implements Initializable {
 
         if (accion.equals("RESTA")) {
             if (total <= 59 && total > 0) {
-                if (total < 9) {
+                if (total <= 10) {
                     tipo.setText("0" + (total - 1));
                 } else {
                     tipo.setText("" + (total - 1));
