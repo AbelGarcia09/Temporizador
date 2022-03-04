@@ -21,8 +21,14 @@ import javafx.scene.control.TextField;
 import javafx.util.Duration;
 
 /**
+ * Clase controladora que se encarga de dar funcionalidad a los elementos de la
+ * vista.
  *
- * @author Abel
+ * @since 1.0
+ * @author Abel y Narciso
+ * @see <a href="https://github.com/AbelGarcia09">Github Abel</a>
+ * @see <a href="https://github.com/NarcisoDAM">Github Narciso</a>
+ * @see <a href="https://github.com/AbelGarcia09/Temporizador">Temporizador</a>
  */
 public class TemporizadorController implements Initializable {
 
@@ -58,13 +64,45 @@ public class TemporizadorController implements Initializable {
     private TextField recordatorio;
     @FXML
     private ListView<Tiempo> listView;
+    /**
+     * Almacena los tiempos que se van a incorporar al ListView.
+     */
     private ObservableList<Tiempo> listaTiempo = FXCollections.observableArrayList();
+    /**
+     * Da formato de hora a una fecha.
+     */
     private final DateTimeFormatter dtf = DateTimeFormatter.ofPattern("HH:mm:ss");
-    private Timeline temporizador, timelineHora;
-    private int hora, minuto, segundo;
+    /**
+     * Línea de tiempo para ir actualizando el temporizador.
+     */
+    private Timeline temporizador;
+    /**
+     * Línea de tiempo para ir actualizando la hora.
+     */
+    private Timeline timelineHora;
+    /**
+     * Contiene las horas.
+     */
+    private int hora;
+    /**
+     * Contiene los minutos.
+     */
+    private int minuto; 
+    /**
+     * Contiene los segundos.
+     */
+    private int segundo;
+    /**
+     * Diálogo de alerta que aparece al finalizar un temporizador.
+     */
     private final Alert fin = new Alert(Alert.AlertType.INFORMATION);
-    private final Tiempo lista = new Tiempo();
+    /**
+     * ChangeListener para cambiar la selección de un item de la lista.
+     */
     private ChangeListener<Tiempo> tiempoChangeListener;
+    /**
+     * Objeto del modelo de datos para llevar el valor del temporizador.
+     */
     private Tiempo tiempo;
 
     @Override
@@ -232,7 +270,9 @@ public class TemporizadorController implements Initializable {
         manipulaTiempo(horas, "RESTA");
     }
 
-    //Método que se ejecuta en el timeline cada 1 segundo.
+    /**
+     * Controla el tiempo
+     */
     private void comprobarTimer() {
         //Pasamos a enteros el texto de los label para poder manipularlos mejor.
         hora = Integer.parseInt(horas.getText());
