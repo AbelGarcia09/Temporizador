@@ -21,8 +21,14 @@ import javafx.scene.control.TextField;
 import javafx.util.Duration;
 
 /**
+ * Clase controladora que se encarga de dar funcionalidad a los elementos de la
+ * vista.
  *
- * @author Abel
+ * @since 1.0
+ * @author Abel y Narciso
+ * @see <a href="https://github.com/AbelGarcia09">Github Abel</a>
+ * @see <a href="https://github.com/NarcisoDAM">Github Narciso</a>
+ * @see <a href="https://github.com/AbelGarcia09/Temporizador">Temporizador</a>
  */
 public class TemporizadorController implements Initializable {
 
@@ -58,15 +64,55 @@ public class TemporizadorController implements Initializable {
     private TextField recordatorio;
     @FXML
     private ListView<Tiempo> listView;
+    /**
+     * Almacena los tiempos que se van a incorporar al ListView.
+     */
     private ObservableList<Tiempo> listaTiempo = FXCollections.observableArrayList();
+    /**
+     * Da formato de hora a una fecha.
+     */
     private final DateTimeFormatter dtf = DateTimeFormatter.ofPattern("HH:mm:ss");
-    private Timeline temporizador, timelineHora;
-    private int hora, minuto, segundo;
+    /**
+     * Línea de tiempo para ir actualizando el temporizador.
+     */
+    private Timeline temporizador;
+    /**
+     * Línea de tiempo para ir actualizando la hora.
+     */
+    private Timeline timelineHora;
+    /**
+     * Contiene las horas.
+     */
+    private int hora;
+    /**
+     * Contiene los minutos.
+     */
+    private int minuto; 
+    /**
+     * Contiene los segundos.
+     */
+    private int segundo;
+    /**
+     * Diálogo de alerta que aparece al finalizar un temporizador.
+     */
     private final Alert fin = new Alert(Alert.AlertType.INFORMATION);
-    private final Tiempo lista = new Tiempo();
+    /**
+     * ChangeListener para cambiar la selección de un item de la lista.
+     */
     private ChangeListener<Tiempo> tiempoChangeListener;
+    /**
+     * Objeto del modelo de datos para llevar el valor del temporizador.
+     */
     private Tiempo tiempo;
 
+    /**
+     * Método initialize() que recibe los parámetros relacionados con nuestro
+     * FXML para mostrar información en la lista, establecer el estado de los 
+     * botones ( enabled: true or false ) y definir el estado inicial de 
+     * la aplicación.
+     * @param url
+     * @param rb 
+     */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
 
@@ -115,6 +161,12 @@ public class TemporizadorController implements Initializable {
                 });
     }
 
+    /**
+     * Este método define la funcionalidad del botón Play y las acciones que se 
+     * llevan a cabo cuando se interactúa con el botón. En este caso, iniciar 
+     * el temporizador o reanudar su ejecucion si ha sido previamente pausado.
+     * @param event 
+     */
     @FXML
     private void play(ActionEvent event) {
         /*Al pulsar Play, guardamos cada tiempo en una clase Tiempo. Un nuevo 
@@ -146,6 +198,13 @@ public class TemporizadorController implements Initializable {
         botonesStatus(true);
     }
 
+    /**
+     * Este método define la funcionalidad del botón Pause y las acciones que se 
+     * llevan a cabo cuando se interactúa con el botón. En este caso, pausa
+     * la ejecución del temporizador, y se puede volver a reanudar desde el 
+     * mismo punto en que fue pausado.
+     * @param event 
+     */
     @FXML
     private void pause(ActionEvent event) {
         //Al pulsar pausa, se pausa el temporizador
@@ -161,6 +220,13 @@ public class TemporizadorController implements Initializable {
         botonesStatus(false);
     }
 
+    /**
+     * Este método define la funcionalidad del botón Reset y las acciones que se 
+     * llevan a cabo cuando se interactúa con el botón. En este caso resetear 
+     * el temporizador al primer valor guardado, es decir, al valor inicial
+     * desde el que ha empezado a contar el temporizador.
+     * @param event 
+     */
     @FXML
     private void reset(ActionEvent event) {
         //Cogemos el tiempo del item seleccionado
@@ -179,6 +245,12 @@ public class TemporizadorController implements Initializable {
         actualizaLista();
     }
 
+    /**
+     * Este método define la funcionalidad del botón Añadir y las acciones que se 
+     * llevan a cabo cuando se interactúa con el botón. En este caso, añadir un 
+     * elemento a la lista y poner el contador a cero para uno nuevo
+     * @param event 
+     */
     @FXML
     private void nuevo(ActionEvent event) {
         //Crea un nuevo temporizador. 
@@ -202,37 +274,70 @@ public class TemporizadorController implements Initializable {
     parámetros del temporizador. Estos llaman al método manipulaTiempo, el cual
     se encarga de realizar la acción pasandole el label que queremos modificar
     y la acción que queremos realizar, ya sea sumar o restar.*/
+    
+    /**
+     * Este metodo define la funcionalidad del botón encargado de aumentar los
+     * segundos.
+     * @param event 
+     */
     @FXML
     private void subeSec(ActionEvent event) {
         manipulaTiempo(segundos, "SUMA");
     }
 
+    /**
+     * Este metodo define la funcionalidad del botón encargado de aumentar los
+     * minutos.
+     * @param event 
+     */
     @FXML
     private void subeMin(ActionEvent event) {
         manipulaTiempo(minutos, "SUMA");
     }
 
+    /**
+     * Este metodo define la funcionalidad del botón encargado de aumentar las
+     * horas.
+     * @param event 
+     */
     @FXML
     private void subeHora(ActionEvent event) {
         manipulaTiempo(horas, "SUMA");
     }
 
+    /**
+     * Este metodo define la funcionalidad del botón encargado de disminuir los
+     * segundos.
+     * @param event 
+     */
     @FXML
     private void bajaSec(ActionEvent event) {
         manipulaTiempo(segundos, "RESTA");
     }
 
+    /**
+     * Este metodo define la funcionalidad del botón encargado de disminuir los
+     * minutos.
+     * @param event 
+     */
     @FXML
     private void bajaMin(ActionEvent event) {
         manipulaTiempo(minutos, "RESTA");
     }
 
+    /**
+     * Este metodo define la funcionalidad del botón encargado de disminuir las
+     * horas.
+     * @param event 
+     */
     @FXML
     private void bajaHora(ActionEvent event) {
         manipulaTiempo(horas, "RESTA");
     }
 
-    //Método que se ejecuta en el timeline cada 1 segundo.
+    /**
+     * Controla el tiempo.
+     */
     private void comprobarTimer() {
         //Pasamos a enteros el texto de los label para poder manipularlos mejor.
         hora = Integer.parseInt(horas.getText());
@@ -275,6 +380,9 @@ public class TemporizadorController implements Initializable {
         }
     }
 
+    /**
+     * Este método se encarga de mostrar los números en los contadores.
+     */
     private void muestraTiempo() {
         /*Se encarga de pasar los enteros a Label para mostrarlos. En caso de 
         ser números menores de 10, se les añade un 0 antes.*/
@@ -297,6 +405,11 @@ public class TemporizadorController implements Initializable {
         }
     }
 
+    /**
+     * Este método define el estado de los botones según los valores del 
+     * temporizador en cada momento. Por ejemplo, que el botón play se 
+     * deshabilite cuando el contador está a cero.
+     */
     private void compruebaCero() {
         /*Si el temporizador está a 0, se desactivan los botones de play, pause,
         reset, y añadir. Y se activan los demás. En caso contrario, solo se 
@@ -321,6 +434,12 @@ public class TemporizadorController implements Initializable {
         }
     }
 
+    /**
+     * Este método recibe y transfiere información sobre el estado de los 
+     * botones. Cuando su estado es false, se deshabilitan, y cuando es true
+     * se habilitan. Esto viene determinado por el estado del temporizador.
+     * @param estado 
+     */
     private void botonesStatus(boolean estado) {
         /*Si le pasamos un true, se desactivarán todos los botones menos el de
         pausa. Si le pasamos un false, al contrario. El botón de play pasa un
@@ -339,6 +458,12 @@ public class TemporizadorController implements Initializable {
         recordatorio.setDisable(estado);
     }
 
+    /**
+     * Este método define la funcionalidad de los botones para aumentar o 
+     * disminuir los contadores de horas, minutos y segundos.
+     * @param tipo
+     * @param accion 
+     */
     private void manipulaTiempo(Label tipo, String accion) {
         //Método que da funcionalidad a los botones de sumar o bajar números.
         //Pasamos a entero el número recibido en el label
@@ -370,6 +495,10 @@ public class TemporizadorController implements Initializable {
         compruebaCero();
     }
 
+    /**
+     * Este método se encarga de actualizar la lista de contadores de la parte
+     * izquierda de la aplicación.
+     */
     private void actualizaLista() {
         //Método que actualiza la lista. Solo es usado en el botón pausa y reset
         tiempo.setTiempo(segundos.getText(),
