@@ -1,12 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package es.ideas.model;
-
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-
 /**
  *
  * @author Abel
@@ -18,7 +10,6 @@ public class Tiempo {
     String[] primer_tiempo = new String[3];
     int posicion;
     static int posicion_siguiente = 0;
-    private ObservableList<Tiempo> listaTiempo = FXCollections.observableArrayList();
     
     public Tiempo() {
         segundos = "00";
@@ -27,7 +18,8 @@ public class Tiempo {
         recordatorio = "";
     }
 
-    public Tiempo(String segundos, String minutos, String horas, String recordatorio) {
+    public Tiempo(String segundos, String minutos, String horas,
+            String recordatorio) {
         this.segundos = segundos;
         this.minutos = minutos;
         this.horas = horas;
@@ -43,7 +35,8 @@ public class Tiempo {
         posicion_siguiente++;
     }
 
-    public void setTiempo(String segundos, String minutos, String horas, String recordatorio) {
+    public void setTiempo(String segundos, String minutos, String horas,
+            String recordatorio) {
         this.segundos = segundos;
         this.minutos = minutos;
         this.horas = horas;
@@ -111,8 +104,5 @@ public class Tiempo {
     public String toString() {
         return horas + ":" + minutos + ":" + segundos;
     }
-    
-    public ObservableList<Tiempo> getTiempos() {
-        return listaTiempo;
-    }
+   
 }

@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package es.ideas.controller;
 
 import es.ideas.model.Tiempo;
@@ -12,6 +8,7 @@ import java.util.ResourceBundle;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.beans.value.ChangeListener;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -61,38 +58,41 @@ public class TemporizadorController implements Initializable {
     private TextField recordatorio;
     @FXML
     private ListView<Tiempo> listView;
+    private ObservableList<Tiempo> listaTiempo = FXCollections.observableArrayList();
     private final DateTimeFormatter dtf = DateTimeFormatter.ofPattern("HH:mm:ss");
     private Timeline temporizador, timelineHora;
     private int hora, minuto, segundo;
     private final Alert fin = new Alert(Alert.AlertType.INFORMATION);
     private final Tiempo lista = new Tiempo();
-    private ObservableList<Tiempo> listaTiempo = lista.getTiempos();
     private ChangeListener<Tiempo> tiempoChangeListener;
     private Tiempo tiempo;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
 
-        /*Timeline de la hora actual. Uso DateTimeFormatter para conseguir el formato 
-        de hora, y LocalDateTime para conseguir la hora actual. Se muestra en un label*/
-        timelineHora = new Timeline(new KeyFrame(Duration.millis(1000), (ActionEvent evento) -> {
-            horaActual.setText(dtf.format(LocalDateTime.now()));
-        }));
+        /*Timeline de la hora actual. Uso DateTimeFormatter para conseguir el
+        formato de hora, y LocalDateTime para conseguir la hora actual. 
+        Se muestra en un label.*/
+        timelineHora = new Timeline(
+                new KeyFrame(Duration.millis(1000), (ActionEvent evento) -> {
+                    horaActual.setText(dtf.format(LocalDateTime.now()));
+                }));
         timelineHora.setCycleCount(Timeline.INDEFINITE);
         timelineHora.play();
 
-        /*Timeline del temporizador. Ejecuta el método comprobarTimer() que se encarga
-        del funcionamiento y reflejar los cambios en los label*/
-        temporizador = new Timeline(new KeyFrame(Duration.millis(1000), (ActionEvent evento) -> {
-            comprobarTimer();
-        }));
+        /*Timeline del temporizador. Ejecuta el método comprobarTimer() que se 
+        encarga del funcionamiento y reflejar los cambios en los label*/
+        temporizador = new Timeline(
+                new KeyFrame(Duration.millis(1000), (ActionEvent evento) -> {
+                    comprobarTimer();
+                }));
         temporizador.setCycleCount(Timeline.INDEFINITE);
 
         //Deseleccionamos el textField de recordatorio al iniciar el programa.
         recordatorio.setFocusTraversable(false);
 
-        /*Este método muestra los cambios en el Timeline. Lo ejecutamos de inicio
-        para que el contador se muestre a 0*/
+        /*Este método muestra los cambios en el Timeline. Lo ejecutamos de 
+        inicio para que el contador se muestre a 0*/
         muestraTiempo();
         /*Comprueba si el contador está en 0. En caso de estar en 0, desactiva y
         activa los botones que creemos convenientes*/
@@ -100,8 +100,8 @@ public class TemporizadorController implements Initializable {
 
         //Se añaden los elementos del ObservableList al ListView.
         listView.setItems(listaTiempo);
-        /*Cuando un elemento de la lista está seleccionado, transalamos los datos
-        guardados en este de nuevo al temporizador*/
+        /*Cuando un elemento de la lista está seleccionado, transalamos los 
+        datos guardados en este de nuevo al temporizador*/
         listView.getSelectionModel().selectedItemProperty().addListener(
                 tiempoChangeListener = (observable, oldValue, newValue) -> {
                     if (newValue != null) {
@@ -109,7 +109,7 @@ public class TemporizadorController implements Initializable {
                         minutos.setText(newValue.getMinutos());
                         segundos.setText(newValue.getSegundos());
                         recordatorio.setText(newValue.getRecordatorio());
-                        //Método que cambia el estado de los botones a nuestra conveniencia
+                        //Método que cambia el estado de los botones
                         botonesStatus(false);
                     }
                 });
@@ -117,12 +117,12 @@ public class TemporizadorController implements Initializable {
 
     @FXML
     private void play(ActionEvent event) {
-        /*Al pulsar Play, guardamos cada tiempo en una clase Tiempo. Un nuevo tiempo
-        solo se crea si el estado del timeline es STOPPED. No vale con que esté pausado.
-        En caso de estar pausado, se sigue utilizando el mismo "Tiempo" cada vez
-        que se pulse el play. Además no puede haber un item seleccionado en la lista.
-        Si no se cumple esta condición, "tiempo" pasará a ser el item que este 
-        seleccionado en la lista*/
+        /*Al pulsar Play, guardamos cada tiempo en una clase Tiempo. Un nuevo 
+        tiempo solo se crea si el estado del timeline es STOPPED. No vale con 
+        que esté pausado. En caso de estar pausado, se sigue utilizando el mismo
+        "Tiempo" cada vez que se pulse el play. Además no puede haber un item 
+        seleccionado en la lista. Si no se cumple esta condición, "tiempo" 
+        pasará a ser el item que este seleccionado en la lista*/
         if (temporizador.getStatus().toString().equals("STOPPED")
                 && listView.getSelectionModel().getSelectedItem() == null) {
             tiempo = new Tiempo(
@@ -170,7 +170,7 @@ public class TemporizadorController implements Initializable {
 
         /*En la clase Tiempo, siempre se guarda en un array el primer tiempo
         que hemos añadido para así poder volver a utilizarlo. Entonces cuando
-        le damos al botón de reset, volvemos a tener en los label el primer tiempo*/
+        le damos al botón de reset, volvemos a recuperar el primer tiempo*/
         String[] array = tiempo.getPrimer_tiempo();
         segundos.setText(array[0]);
         minutos.setText(array[1]);
@@ -181,7 +181,8 @@ public class TemporizadorController implements Initializable {
 
     @FXML
     private void nuevo(ActionEvent event) {
-        //Crea un nuevo temporizador. Para ello deselecciona los item de la lista
+        //Crea un nuevo temporizador. 
+        //Para ello deselecciona los item de la lista.
         listView.getSelectionModel().clearSelection();
 
         //Lo pone todo a 0. Como recien abierto el programa.
@@ -239,8 +240,8 @@ public class TemporizadorController implements Initializable {
         segundo = Integer.parseInt(segundos.getText());
 
         /*Se restará un segundo mientras que estos sean mayor que 0. Si no, 
-        los segundos volverán a 59 y además, se volverá a evaluar de la misma manera
-        los minutos, y en caso de ser necesario, las horas*/
+        los segundos volverán a 59 y además, se volverá a evaluar de la misma 
+        manera los minutos, y en caso de ser necesario, las horas*/
         if (segundo > 0) {
             segundo--;
         } else {
@@ -264,8 +265,8 @@ public class TemporizadorController implements Initializable {
             temporizador.stop();
             actualizaLista();
 
-            /*Aparece un mensaje de alarma avisando que el temporizador ha llegado
-            a su fin y enseñando el recordatorio de ese tiempo*/
+            /*Aparece un mensaje de alarma avisando que el temporizador ha 
+            llegado a su fin y enseñando el recordatorio de ese tiempo*/
             fin.setHeaderText("TEMPORIZADOR FINALIZADO");
             fin.setContentText(tiempo.getRecordatorio());
             fin.show();
@@ -275,8 +276,8 @@ public class TemporizadorController implements Initializable {
     }
 
     private void muestraTiempo() {
-        /*Se encarga de pasar los enteros a Label para mostrarlos. En caso de ser
-        números menores de 10, se les añade un 0 antes. Si no, se muestra normal*/
+        /*Se encarga de pasar los enteros a Label para mostrarlos. En caso de 
+        ser números menores de 10, se les añade un 0 antes.*/
         if (hora < 10) {
             horas.setText("0" + hora);
         } else {
@@ -298,9 +299,11 @@ public class TemporizadorController implements Initializable {
 
     private void compruebaCero() {
         /*Si el temporizador está a 0, se desactivan los botones de play, pause,
-        reset, y añadir. Y se activan los demás. En caso contrario, solo se activa
-        el de play.*/
-        if (horas.getText().equals("00") && minutos.getText().equals("00") && segundos.getText().equals("00")) {
+        reset, y añadir. Y se activan los demás. En caso contrario, solo se 
+        activa el de play.*/
+        if (horas.getText().equals("00")
+                && minutos.getText().equals("00")
+                && segundos.getText().equals("00")) {
             idPlay.setDisable(true);
             idPause.setDisable(true);
             idReset.setDisable(true);
@@ -341,7 +344,7 @@ public class TemporizadorController implements Initializable {
         //Pasamos a entero el número recibido en el label
         int total = Integer.parseInt(tipo.getText());
 
-        /*Si la acción que recibimos del botón es una suma, se sumará una unidad.
+        /*Si la acción que recibimos del botón es "SUMA", se sumará una unidad.
         Si no, restará una unidad. Solo funciona mientras que los números estén
         entre 0 y 59*/
         if (accion.equals("SUMA")) {
